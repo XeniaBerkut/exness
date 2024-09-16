@@ -13,14 +13,18 @@ class HomePage(BasePage):
         super().__init__(driver)
 
     locators = {
-        'sign_up_btn_menu': (By.XPATH, "//a[contains(@data-param, 'menu') and @data-testid='button:sign-up']"),
-        'sign_up_btn_header': (By.XPATH, '//a[contains(@data-param, "header") and @data-testid="button:sign-up"]'),
-        'sign_up_btn_bottom': (By.XPATH, '//a[contains(@data-param, "bottom") and @data-testid="button:sign-up"]')
+        'sign_up_btn_menu': (By.XPATH, "//a[contains(@data-param, 'menu') "
+                                       "and @data-testid='button:sign-up']"),
+        'sign_up_btn_header': (By.XPATH, '//a[contains(@data-param, "header") '
+                                         'and @data-testid="button:sign-up"]'),
+        'sign_up_btn_bottom': (By.XPATH, '//a[contains(@data-param, "bottom") '
+                                         'and @data-testid="button:sign-up"]')
     }
 
     def go_to_registration_page(self, driver, registration_btn: str):
         logger.info(f'Click registration button {registration_btn}')
-        registration_button = self.driver.find_element(*self.locators[registration_btn])
+        registration_button = self.driver.find_element(
+            *self.locators[registration_btn])
         registration_button.click()
         logger.info('The registration button was clicked')
 
@@ -31,9 +35,10 @@ class HomePage(BasePage):
         registration_page: str = active_pages[1]
 
         assert len(active_pages) == expected_active_pages_count, \
-            f'Expected {expected_active_pages_count} active pages, but was {len(active_pages)}'
+            (f'Expected {expected_active_pages_count} active pages, '
+             f'but was {len(active_pages)}')
 
-        logger.info("Check if HomePage is still active so RegistrationPage is open in a new window ")
+        logger.info("Check if HomePage is still active")
         assert driver.current_url == 'https://www.exness.com/', \
             f'Expected HomePage is active, but was {driver.current_url}'
 
